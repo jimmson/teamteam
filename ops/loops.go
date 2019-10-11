@@ -48,7 +48,7 @@ func startMatchForever(b Backends) {
 func consumeEngine(b Backends) {
 
 	f := func(ctx context.Context, fate fate.Fate, e *reflex.Event) error {
-		fmt.Printf("%+v", e)
+		fmt.Printf("Event ID: %s /n", e.ID)
 
 		return nil
 	}
