@@ -113,30 +113,38 @@ func SuccessRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
 }
 
 // -----------
-// Succeed Round and Start New Match
+// Succeed Round
 func SucceedRoundButNewMatch(ctx context.Context, dbc *sql.DB, id int64) error {
 	return fsm.Update(ctx, dbc, MatchStatusRoundSuccess, MatchStatusRoundStarted,
 		roundMove{ID: id})
 }
 
-// -----------
-// Succeed Round and End Match
 func SucceedRoundAndEndMatch(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundFailed, MatchStatusRoundStarted,
+	return fsm.Update(ctx, dbc, MatchStatusRoundFailed, MatchStatusMatchEnded,
 		roundMove{ID: id})
 }
 
 // -----------
-// Fail Round and Start New Match
+// Fail Round
 func FailRoundButNewMatch(ctx context.Context, dbc *sql.DB, id int64) error {
 	return fsm.Update(ctx, dbc, MatchStatusRoundFailed, MatchStatusRoundStarted,
 		roundMove{ID: id})
 }
 
-// -----------
-// Fail Round and Start New Match
 func FailRoundAndEndMatch(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundFailed, MatchStatusRoundStarted,
+	return fsm.Update(ctx, dbc, MatchStatusRoundFailed, MatchStatusMatchEnded,
+		roundMove{ID: id})
+}
+
+// -----------
+// Excluded from Round
+func ExcludeRoundButNewMatch(ctx context.Context, dbc *sql.DB, id int64) error {
+	return fsm.Update(ctx, dbc, MatchStatusRoundExcluded, MatchStatusRoundStarted,
+		roundMove{ID: id})
+}
+
+func ExcludeRoundAndEndMatch(ctx context.Context, dbc *sql.DB, id int64) error {
+	return fsm.Update(ctx, dbc, MatchStatusRoundExcluded, MatchStatusMatchEnded,
 		roundMove{ID: id})
 }
 
