@@ -27,6 +27,10 @@ func StartLoops(b Backends) {
 	go consumeEngine(b)
 }
 
+func consumeMatchRoundEvents(b Backends) {
+	// TODO(teamteam) Consume our internal match events and interact with engine
+}
+
 func startMatchForever(b Backends) {
 	for {
 		ctx := unsure.ContextWithFate(context.Background(), unsure.DefaultFateP())
@@ -49,6 +53,20 @@ func consumeEngine(b Backends) {
 
 	f := func(ctx context.Context, fate fate.Fate, e *reflex.Event) error {
 		fmt.Printf("Event: %s \n", String(e.Type.ReflexType()))
+
+		engineType := engine.EventType(e.Type.ReflexType())
+
+		switch engineType {
+		case engine.EventTypeMatchStarted:
+			//	TODO(teamteam): Update match state to match started
+		case engine.EventTypeRoundJoin:
+			//	TODO(teamteam): Update match state to match joining
+			//	TODO(teamteam): inc round counter? get round num from event?
+		//	TODO(teamteam): Update match state to excluded
+		case engine.EventTypeRoundCollect:
+			//	TODO(teamteam): Update match state collecting
+			//TODO......
+		}
 
 		return nil
 	}
