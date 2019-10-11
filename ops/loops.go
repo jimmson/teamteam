@@ -48,7 +48,7 @@ func startMatchForever(b Backends) {
 func consumeEngine(b Backends) {
 
 	f := func(ctx context.Context, fate fate.Fate, e *reflex.Event) error {
-		fmt.Printf("Event ID: %s /n", e.ID)
+		fmt.Printf("Event: %s \n", String(e.Type.ReflexType()))
 
 		return nil
 	}
@@ -76,4 +76,34 @@ func unsureCtx() context.Context {
 	}()
 
 	return unsure.ContextWithFate(ctx, unsure.DefaultFateP())
+}
+
+// String returns the string representation of "t".
+func String(t int) string {
+	switch t {
+	case engine.EventTypeUnknown.ReflexType():
+		return "Unknown"
+	case engine.EventTypeMatchStarted.ReflexType():
+		return "Match Started"
+	case engine.EventTypeMatchEnded.ReflexType():
+		return "Match Ended"
+	case engine.EventTypeRoundJoin.ReflexType():
+		return "Round Joining"
+	case engine.EventTypeRoundJoined.ReflexType():
+		return "Round Joined"
+	case engine.EventTypeRoundCollect.ReflexType():
+		return "Round Collecting"
+	case engine.EventTypeRoundCollected.ReflexType():
+		return "Round Collected"
+	case engine.EventTypeRoundSubmit.ReflexType():
+		return "Round Submitting"
+	case engine.EventTypeRoundSubmitted.ReflexType():
+		return "Round Submitted"
+	case engine.EventTypeRoundSuccess.ReflexType():
+		return "Round Success"
+	case engine.EventTypeRoundFailed.ReflexType():
+		return "Round Failed"
+	default:
+		return "Invalid event type"
+	}
 }
