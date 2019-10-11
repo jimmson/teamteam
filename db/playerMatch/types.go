@@ -23,7 +23,6 @@ type Match struct {
 	Status    		MatchStatus
 	CreatedAt 		time.Time
 	UpdatedAt 		time.Time
-	MatchID 	  	int
 	PlayerName		string
 	RoundNum		int
 	Rank 			int
@@ -36,7 +35,6 @@ type MatchJSON struct {
 	Status    MatchStatus 	`json:"status"`
 	CreatedAt time.Time     `json:"created_at"`
 	UpdatedAt time.Time     `json:"updated_at"`
-	MatchID 	  	int		`json:"match_id"`
 	PlayerName		string	`json:"player_Name"`
 	RoundNum		int		`json:"round_num"`
 	Rank 			int		`json:"rank"`

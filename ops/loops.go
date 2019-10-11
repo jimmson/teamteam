@@ -63,7 +63,10 @@ func consumeEngine(b Backends) {
 			return err
 		}
 
-		//round, err := b.TeamTeamClient().GetPlayerRound(ctx, int(roundID), "")
+		match, err := playerMatch.Lookup(ctx, b.TeamteamDB().DB, roundID)
+		if err != nil {
+			return err
+		}
 
 		switch engineType {
 		case engine.EventTypeMatchStarted:
@@ -77,15 +80,19 @@ func consumeEngine(b Backends) {
 		case engine.EventTypeRoundJoined:
 			err = playerMatch.JoinedRound(ctx, b.TeamteamDB().DB, roundID)
 		case engine.EventTypeRoundCollect:
-			//	TODO(teamteam): Update match state collecting
-			//err = playerMatch.CollectingRound(ctx, b.TeamteamDB().DB, roundID)
-			//TODO......
+			err = playerMatch.CollectingRound(ctx, b.TeamteamDB().DB, roundID, 0, match.Rank, match.MyPart, match.PlayerPart)
 		case engine.EventTypeRoundCollected:
+			err = playerMatch.CollectedRound(ctx, b.TeamteamDB().DB, roundID)
 		case engine.EventTypeRoundSubmit:
+			err = playerMatch.SubmittingRound(ctx, b.TeamteamDB().DB, roundID)
 		case engine.EventTypeRoundSubmitted:
+			err = playerMatch.SubmittedRound(ctx, b.TeamteamDB().DB, roundID)
 		case engine.EventTypeRoundSuccess:
+			err = playerMatch.SuccessRound(ctx, b.TeamteamDB().DB, roundID)
 		case engine.EventTypeRoundFailed:
+			err = playerMatch.RoundFailed(ctx, b.TeamteamDB().DB, roundID, match.Status)
 		case engine.EventTypeMatchEnded:
+			err = playerMatch.EndMatch(ctx, b.TeamteamDB().DB, roundID, match.Status)
 		}
 
 		return nil

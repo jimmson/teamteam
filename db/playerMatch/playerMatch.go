@@ -5,7 +5,7 @@ import (
 	"database/sql"
 )
 
-const cols = " id, status, created_at, updated_at, match_id, round_num, rank, my_part, player_part "
+const cols = " id, status, created_at, updated_at, player_name, round_num, rank, my_part, player_part "
 
 // Create starts the match
 func Create(ctx context.Context, dbc *sql.DB, match int) (int64, error) {
@@ -19,8 +19,17 @@ func StartRound(ctx context.Context, dbc *sql.DB, id int64) error {
 		roundMove{ID: id})
 }
 
-func StartRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusMatchStarted, MatchStatusRoundFailed,
+// -----------------
+// Failed Round
+func RoundFailed(ctx context.Context, dbc *sql.DB, id int64, status MatchStatus) error {
+	return fsm.Update(ctx, dbc, status, MatchStatusRoundFailed,
+		roundMove{ID: id})
+}
+
+// -----------------
+// End Match
+func EndMatch(ctx context.Context, dbc *sql.DB, id int64, status MatchStatus) error {
+	return fsm.Update(ctx, dbc, status, MatchStatusMatchEnded,
 		roundMove{ID: id})
 }
 
@@ -31,20 +40,10 @@ func JoiningRound(ctx context.Context, dbc *sql.DB, id int64) error {
 		roundMove{ID: id})
 }
 
-func JoiningRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundStarted, MatchStatusRoundFailed,
-		roundMove{ID: id})
-}
-
 // -----------
 // Try confirm Joined Round
 func JoinedRound(ctx context.Context, dbc *sql.DB, id int64) error {
 	return fsm.Update(ctx, dbc, MatchStatusRoundJoining, MatchStatusRoundJoined,
-		roundMove{ID: id})
-}
-
-func JoinedRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundJoining, MatchStatusRoundFailed,
 		roundMove{ID: id})
 }
 
@@ -60,20 +59,10 @@ func CollectingRound(ctx context.Context, dbc *sql.DB, id int64, roundNum, rank,
 		roundCollect{ID: id, RoundNum: roundNum, Rank: rank, MyPart: myparts, PlayerPart: playerpart})
 }
 
-func CollectingRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundJoined, MatchStatusRoundFailed,
-		roundMove{ID: id})
-}
-
 // -----------
 // Try Confirm Collected Round
 func CollectedRound(ctx context.Context, dbc *sql.DB, id int64) error {
 	return fsm.Update(ctx, dbc, MatchStatusRoundCollecting, MatchStatusRoundCollected,
-		roundMove{ID: id})
-}
-
-func CollectedRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundCollecting, MatchStatusRoundFailed,
 		roundMove{ID: id})
 }
 
@@ -84,11 +73,6 @@ func SubmittingRound(ctx context.Context, dbc *sql.DB, id int64) error {
 		roundMove{ID: id})
 }
 
-func SubmittingRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundCollected, MatchStatusRoundFailed,
-		roundMove{ID: id})
-}
-
 // -----------
 // Try confirm Submitted Round
 func SubmittedRound(ctx context.Context, dbc *sql.DB, id int64) error {
@@ -96,20 +80,10 @@ func SubmittedRound(ctx context.Context, dbc *sql.DB, id int64) error {
 		roundMove{ID: id})
 }
 
-func SubmittedRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundSubmitting, MatchStatusRoundFailed,
-		roundMove{ID: id})
-}
-
 // -----------
 // Try Succeed Round
 func SuccessRound(ctx context.Context, dbc *sql.DB, id int64) error {
 	return fsm.Update(ctx, dbc, MatchStatusRoundSubmitted, MatchStatusRoundSuccess,
-		roundMove{ID: id})
-}
-
-func SuccessRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {
-	return fsm.Update(ctx, dbc, MatchStatusRoundSubmitted, MatchStatusRoundFailed,
 		roundMove{ID: id})
 }
 
@@ -156,7 +130,7 @@ func Lookup(ctx context.Context, dbc *sql.DB, id int64) (*Match, error) {
 func scan(row *sql.Row) (*Match, error) {
 	var r Match
 
-	err := row.Scan(&r.ID, &r.Status, &r.CreatedAt, &r.UpdatedAt, &r.MatchID, &r.RoundNum, &r.Rank, &r.MyPart, &r.PlayerPart)
+	err := row.Scan(&r.ID, &r.Status, &r.CreatedAt, &r.UpdatedAt, &r.PlayerName, &r.RoundNum, &r.Rank, &r.MyPart, &r.PlayerPart)
 	if err != nil {
 		return nil, err
 	}
