@@ -6,7 +6,9 @@ import (
 
 	"github.com/corverroos/unsure"
 	teamteam_ops "github.com/jimmson/teamteam/ops"
+	teamteam_server "github.com/jimmson/teamteam/server"
 	"github.com/jimmson/teamteam/state"
+	"github.com/jimmson/teamteam/teamteampb"
 	"github.com/luno/jettison/errors"
 )
 
@@ -39,12 +41,12 @@ func serveGRPCForever(s *state.State) {
 		unsure.Fatal(errors.Wrap(err, "new grpctls server"))
 	}
 
-	//teamteamSrv := teamteam_server.New(s)
-	//teamteampb.RegisterteamteamServer(grpcServer.GRPCServer(), teamteamSrv)
+	teamteamSrv := teamteam_server.New(s)
+	teamteampb.RegisterTeamTeamServer(grpcServer.GRPCServer(), teamteamSrv)
 
 	unsure.RegisterNoErr(func() {
 		//teamteamSrv.Stop()
-		//grpcServer.Stop()
+		grpcServer.Stop()
 	})
 
 	unsure.Fatal(grpcServer.ServeForever())
