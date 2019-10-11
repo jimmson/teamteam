@@ -27,9 +27,6 @@ func (一 create) Insert(ctx context.Context, tx *sql.Tx,st shift.Status) (int64
 	q.WriteString(", `match`=?")
 	args = append(args, 一.Match)
 
-	q.WriteString(", `player_name`=?")
-	args = append(args, 一.PlayerName)
-
 	res, err := tx.ExecContext(ctx, q.String(), args...)
 	if err != nil {
 		return 0, err
@@ -43,9 +40,9 @@ func (一 create) Insert(ctx context.Context, tx *sql.Tx,st shift.Status) (int64
 }
 
 // Update updates the status of a player_match table entity. All the fields of the
-// round receiver are updated, as well as status and updated_at. 
+// roundCollect receiver are updated, as well as status and updated_at. 
 // The entity id is returned on success or an error.
-func (一 round) Update(ctx context.Context, tx *sql.Tx,from shift.Status, 
+func (一 roundCollect) Update(ctx context.Context, tx *sql.Tx,from shift.Status, 
 	to shift.Status) (int64, error) {
 	var (
 		q    strings.Builder
@@ -54,6 +51,9 @@ func (一 round) Update(ctx context.Context, tx *sql.Tx,from shift.Status,
 
 	q.WriteString("update player_match set `status`=?, `updated_at`=? ")
 	args = append(args, to.Enum(), time.Now())
+
+	q.WriteString(", `round_num`=?")
+	args = append(args, 一.RoundNum)
 
 	q.WriteString(", `rank`=?")
 	args = append(args, 一.Rank)
@@ -76,7 +76,38 @@ func (一 round) Update(ctx context.Context, tx *sql.Tx,from shift.Status,
 		return 0, err
 	}
 	if n != 1 {
-		return 0, errors.Wrap(shift.ErrRowCount, "round", j.KV("count", n))
+		return 0, errors.Wrap(shift.ErrRowCount, "roundCollect", j.KV("count", n))
+	}
+
+	return 一.ID, nil
+}
+
+// Update updates the status of a player_match table entity. All the fields of the
+// roundMove receiver are updated, as well as status and updated_at. 
+// The entity id is returned on success or an error.
+func (一 roundMove) Update(ctx context.Context, tx *sql.Tx,from shift.Status, 
+	to shift.Status) (int64, error) {
+	var (
+		q    strings.Builder
+		args []interface{}
+	)
+
+	q.WriteString("update player_match set `status`=?, `updated_at`=? ")
+	args = append(args, to.Enum(), time.Now())
+
+	q.WriteString(" where `id`=? and `status`=?")
+	args = append(args, 一.ID, from.Enum())
+
+	res, err := tx.ExecContext(ctx, q.String(), args...)
+	if err != nil {
+		return 0, err
+	}
+	n, err := res.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+	if n != 1 {
+		return 0, errors.Wrap(shift.ErrRowCount, "roundMove", j.KV("count", n))
 	}
 
 	return 一.ID, nil

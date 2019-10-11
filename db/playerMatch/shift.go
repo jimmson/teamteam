@@ -5,34 +5,38 @@ import (
 	"github.com/luno/shift"
 )
 
-//go:generate shiftgen -inserter=create -updaters=round -table=player_match
+//go:generate shiftgen -inserter=create -updaters=roundMove,roundCollect -table=player_match
 
 var fsm = shift.NewFSM(events.GetTable()).
 	Insert(MatchStatusMatchStarted, 	create{}, MatchStatusRoundStarted).
 
-	Update(MatchStatusRoundStarted, 	round{}, MatchStatusRoundJoining, MatchStatusRoundFailed).
-	Update(MatchStatusRoundJoining, 	round{}, MatchStatusRoundJoined, MatchStatusRoundFailed, MatchStatusRoundExcluded).
-	Update(MatchStatusRoundJoined, 		round{}, MatchStatusRoundCollecting, MatchStatusRoundFailed).
-	Update(MatchStatusRoundCollecting, 	round{}, MatchStatusRoundCollected, MatchStatusRoundFailed).
-	Update(MatchStatusRoundCollected, 	round{}, MatchStatusRoundSubmitting, MatchStatusRoundFailed).
-	Update(MatchStatusRoundSubmitting, 	round{}, MatchStatusRoundSubmitted, MatchStatusRoundFailed).
-	Update(MatchStatusRoundSubmitted, 	round{}, MatchStatusRoundSuccess, MatchStatusRoundFailed).
-	Update(MatchStatusRoundSuccess, 	round{}, MatchStatusRoundStarted, MatchStatusMatchEnded).
+	Update(MatchStatusRoundStarted, 	roundMove{}, MatchStatusRoundJoining, MatchStatusRoundFailed).
+	Update(MatchStatusRoundJoining, 	roundMove{}, MatchStatusRoundJoined, MatchStatusRoundFailed, MatchStatusRoundExcluded).
+	Update(MatchStatusRoundJoined, 		roundMove{}, MatchStatusRoundCollecting, MatchStatusRoundFailed).
+	Update(MatchStatusRoundCollecting, 	roundCollect{}, MatchStatusRoundCollected, MatchStatusRoundFailed).
+	Update(MatchStatusRoundCollected, 	roundMove{}, MatchStatusRoundSubmitting, MatchStatusRoundFailed).
+	Update(MatchStatusRoundSubmitting, 	roundMove{}, MatchStatusRoundSubmitted, MatchStatusRoundFailed).
+	Update(MatchStatusRoundSubmitted, 	roundMove{}, MatchStatusRoundSuccess, MatchStatusRoundFailed).
+	Update(MatchStatusRoundSuccess, 	roundMove{}, MatchStatusRoundStarted, MatchStatusMatchEnded).
 
-	Update(MatchStatusRoundFailed, 		round{}, MatchStatusRoundStarted, MatchStatusMatchEnded).
-	Update(MatchStatusRoundExcluded, 	round{}, MatchStatusRoundStarted, MatchStatusMatchEnded).
+	Update(MatchStatusRoundFailed, 		roundMove{}, MatchStatusRoundStarted, MatchStatusMatchEnded).
+	Update(MatchStatusRoundExcluded, 	roundMove{}, MatchStatusRoundStarted, MatchStatusMatchEnded).
 
-	Update(MatchStatusMatchEnded, 		round{}).
+	Update(MatchStatusMatchEnded, 		roundMove{}).
 	Build()
 
 type create struct {
 	Match 		int
-	PlayerName	string
 }
 
-type round struct {
-	ID 			int
+type roundCollect struct {
+	ID 			int64
+	RoundNum	int
 	Rank 		int
 	MyPart  	int
 	PlayerPart 	int
+}
+
+type roundMove struct {
+	ID 			int64
 }

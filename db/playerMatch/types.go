@@ -1,6 +1,9 @@
 package playerMatch
 
-import "time"
+import (
+	"github.com/corverroos/unsure/engine"
+	"time"
+)
 
 type MatchStatus int
 
@@ -16,10 +19,16 @@ func (ms MatchStatus) ReflexType() int {
 }
 
 type Match struct {
-	ID        int64               `protocp:"1"`
-	Status    MatchStatus         `protocp:"2"`
-	CreatedAt time.Time           `protocp:"3"`
-	UpdatedAt time.Time           `protocp:"4"`
+	ID        		int64
+	Status    		MatchStatus
+	CreatedAt 		time.Time
+	UpdatedAt 		time.Time
+	MatchID 	  	int
+	PlayerName		string
+	RoundNum		int
+	Rank 			int
+	MyPart  		int
+	PlayerPart 		int
 }
 
 type MatchJSON struct {
@@ -27,6 +36,12 @@ type MatchJSON struct {
 	Status    MatchStatus 	`json:"status"`
 	CreatedAt time.Time     `json:"created_at"`
 	UpdatedAt time.Time     `json:"updated_at"`
+	MatchID 	  	int		`json:"match_id"`
+	PlayerName		string	`json:"player_Name"`
+	RoundNum		int		`json:"round_num"`
+	Rank 			int		`json:"rank"`
+	MyPart  		int		`json:"my_part"`
+	PlayerPart 		int		`json:"player_part"`
 }
 
 var (
@@ -49,7 +64,16 @@ var (
 	MatchStatusMatchEnded				MatchStatus = 12
 )
 
-var matchReflex = map[MatchStatus]EventType{
-	// TODO(Kyle): Add Reflex Event types
+var matchReflex = map[MatchStatus]engine.EventType{
+	MatchStatusMatchStarted: engine.EventTypeMatchStarted,
+	MatchStatusRoundStarted: engine.EventTypeRoundJoin,
+	MatchStatusRoundJoined: engine.EventTypeRoundJoined,
+	MatchStatusRoundCollecting: engine.EventTypeRoundCollect,
+	MatchStatusRoundCollected: engine.EventTypeRoundCollected,
+	MatchStatusRoundSubmitting:engine.EventTypeRoundSubmit,
+	MatchStatusRoundSubmitted: engine.EventTypeRoundSubmitted,
+	MatchStatusRoundSuccess: engine.EventTypeRoundSuccess,
+	MatchStatusRoundFailed: engine.EventTypeRoundFailed,
+	MatchStatusMatchEnded: engine.EventTypeMatchEnded,
 }
 
