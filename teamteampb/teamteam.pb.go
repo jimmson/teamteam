@@ -34,7 +34,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_teamteam_bfe49057c34d5ae5, []int{0}
+	return fileDescriptor_teamteam_e3048e0a75a105c9, []int{0}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Empty.Unmarshal(m, b)
@@ -54,7 +54,7 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
-type GetRoundRequest struct {
+type GetPlayerRoundRequest struct {
 	Round                int32    `protobuf:"varint,1,opt,name=round,proto3" json:"round,omitempty"`
 	Player               string   `protobuf:"bytes,2,opt,name=player,proto3" json:"player,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -62,45 +62,45 @@ type GetRoundRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetRoundRequest) Reset()         { *m = GetRoundRequest{} }
-func (m *GetRoundRequest) String() string { return proto.CompactTextString(m) }
-func (*GetRoundRequest) ProtoMessage()    {}
-func (*GetRoundRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_teamteam_bfe49057c34d5ae5, []int{1}
+func (m *GetPlayerRoundRequest) Reset()         { *m = GetPlayerRoundRequest{} }
+func (m *GetPlayerRoundRequest) String() string { return proto.CompactTextString(m) }
+func (*GetPlayerRoundRequest) ProtoMessage()    {}
+func (*GetPlayerRoundRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_teamteam_e3048e0a75a105c9, []int{1}
 }
-func (m *GetRoundRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetRoundRequest.Unmarshal(m, b)
+func (m *GetPlayerRoundRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetPlayerRoundRequest.Unmarshal(m, b)
 }
-func (m *GetRoundRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetRoundRequest.Marshal(b, m, deterministic)
+func (m *GetPlayerRoundRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetPlayerRoundRequest.Marshal(b, m, deterministic)
 }
-func (dst *GetRoundRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetRoundRequest.Merge(dst, src)
+func (dst *GetPlayerRoundRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetPlayerRoundRequest.Merge(dst, src)
 }
-func (m *GetRoundRequest) XXX_Size() int {
-	return xxx_messageInfo_GetRoundRequest.Size(m)
+func (m *GetPlayerRoundRequest) XXX_Size() int {
+	return xxx_messageInfo_GetPlayerRoundRequest.Size(m)
 }
-func (m *GetRoundRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetRoundRequest.DiscardUnknown(m)
+func (m *GetPlayerRoundRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetPlayerRoundRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetRoundRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetPlayerRoundRequest proto.InternalMessageInfo
 
-func (m *GetRoundRequest) GetRound() int32 {
+func (m *GetPlayerRoundRequest) GetRound() int32 {
 	if m != nil {
 		return m.Round
 	}
 	return 0
 }
 
-func (m *GetRoundRequest) GetPlayer() string {
+func (m *GetPlayerRoundRequest) GetPlayer() string {
 	if m != nil {
 		return m.Player
 	}
 	return ""
 }
 
-type Round struct {
+type PlayerRound struct {
 	PlayerRank           int32    `protobuf:"varint,1,opt,name=player_rank,json=playerRank,proto3" json:"player_rank,omitempty"`
 	MyPart               int32    `protobuf:"varint,2,opt,name=my_part,json=myPart,proto3" json:"my_part,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -108,38 +108,38 @@ type Round struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Round) Reset()         { *m = Round{} }
-func (m *Round) String() string { return proto.CompactTextString(m) }
-func (*Round) ProtoMessage()    {}
-func (*Round) Descriptor() ([]byte, []int) {
-	return fileDescriptor_teamteam_bfe49057c34d5ae5, []int{2}
+func (m *PlayerRound) Reset()         { *m = PlayerRound{} }
+func (m *PlayerRound) String() string { return proto.CompactTextString(m) }
+func (*PlayerRound) ProtoMessage()    {}
+func (*PlayerRound) Descriptor() ([]byte, []int) {
+	return fileDescriptor_teamteam_e3048e0a75a105c9, []int{2}
 }
-func (m *Round) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Round.Unmarshal(m, b)
+func (m *PlayerRound) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PlayerRound.Unmarshal(m, b)
 }
-func (m *Round) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Round.Marshal(b, m, deterministic)
+func (m *PlayerRound) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PlayerRound.Marshal(b, m, deterministic)
 }
-func (dst *Round) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Round.Merge(dst, src)
+func (dst *PlayerRound) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PlayerRound.Merge(dst, src)
 }
-func (m *Round) XXX_Size() int {
-	return xxx_messageInfo_Round.Size(m)
+func (m *PlayerRound) XXX_Size() int {
+	return xxx_messageInfo_PlayerRound.Size(m)
 }
-func (m *Round) XXX_DiscardUnknown() {
-	xxx_messageInfo_Round.DiscardUnknown(m)
+func (m *PlayerRound) XXX_DiscardUnknown() {
+	xxx_messageInfo_PlayerRound.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Round proto.InternalMessageInfo
+var xxx_messageInfo_PlayerRound proto.InternalMessageInfo
 
-func (m *Round) GetPlayerRank() int32 {
+func (m *PlayerRound) GetPlayerRank() int32 {
 	if m != nil {
 		return m.PlayerRank
 	}
 	return 0
 }
 
-func (m *Round) GetMyPart() int32 {
+func (m *PlayerRound) GetMyPart() int32 {
 	if m != nil {
 		return m.MyPart
 	}
@@ -148,8 +148,8 @@ func (m *Round) GetMyPart() int32 {
 
 func init() {
 	proto.RegisterType((*Empty)(nil), "teamteampb.Empty")
-	proto.RegisterType((*GetRoundRequest)(nil), "teamteampb.GetRoundRequest")
-	proto.RegisterType((*Round)(nil), "teamteampb.Round")
+	proto.RegisterType((*GetPlayerRoundRequest)(nil), "teamteampb.GetPlayerRoundRequest")
+	proto.RegisterType((*PlayerRound)(nil), "teamteampb.PlayerRound")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -166,7 +166,7 @@ const _ = grpc.SupportPackageIsVersion4
 type TeamTeamClient interface {
 	Ping(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
 	Stream(ctx context.Context, in *reflexpb.StreamRequest, opts ...grpc.CallOption) (TeamTeam_StreamClient, error)
-	GetRound(ctx context.Context, in *GetRoundRequest, opts ...grpc.CallOption) (*Round, error)
+	GetPlayerRound(ctx context.Context, in *GetPlayerRoundRequest, opts ...grpc.CallOption) (*PlayerRound, error)
 }
 
 type teamTeamClient struct {
@@ -218,9 +218,9 @@ func (x *teamTeamStreamClient) Recv() (*reflexpb.Event, error) {
 	return m, nil
 }
 
-func (c *teamTeamClient) GetRound(ctx context.Context, in *GetRoundRequest, opts ...grpc.CallOption) (*Round, error) {
-	out := new(Round)
-	err := c.cc.Invoke(ctx, "/teamteampb.TeamTeam/GetRound", in, out, opts...)
+func (c *teamTeamClient) GetPlayerRound(ctx context.Context, in *GetPlayerRoundRequest, opts ...grpc.CallOption) (*PlayerRound, error) {
+	out := new(PlayerRound)
+	err := c.cc.Invoke(ctx, "/teamteampb.TeamTeam/GetPlayerRound", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +231,7 @@ func (c *teamTeamClient) GetRound(ctx context.Context, in *GetRoundRequest, opts
 type TeamTeamServer interface {
 	Ping(context.Context, *Empty) (*Empty, error)
 	Stream(*reflexpb.StreamRequest, TeamTeam_StreamServer) error
-	GetRound(context.Context, *GetRoundRequest) (*Round, error)
+	GetPlayerRound(context.Context, *GetPlayerRoundRequest) (*PlayerRound, error)
 }
 
 func RegisterTeamTeamServer(s *grpc.Server, srv TeamTeamServer) {
@@ -277,20 +277,20 @@ func (x *teamTeamStreamServer) Send(m *reflexpb.Event) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _TeamTeam_GetRound_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRoundRequest)
+func _TeamTeam_GetPlayerRound_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPlayerRoundRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TeamTeamServer).GetRound(ctx, in)
+		return srv.(TeamTeamServer).GetPlayerRound(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/teamteampb.TeamTeam/GetRound",
+		FullMethod: "/teamteampb.TeamTeam/GetPlayerRound",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TeamTeamServer).GetRound(ctx, req.(*GetRoundRequest))
+		return srv.(TeamTeamServer).GetPlayerRound(ctx, req.(*GetPlayerRoundRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -304,8 +304,8 @@ var _TeamTeam_serviceDesc = grpc.ServiceDesc{
 			Handler:    _TeamTeam_Ping_Handler,
 		},
 		{
-			MethodName: "GetRound",
-			Handler:    _TeamTeam_GetRound_Handler,
+			MethodName: "GetPlayerRound",
+			Handler:    _TeamTeam_GetPlayerRound_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
@@ -318,25 +318,25 @@ var _TeamTeam_serviceDesc = grpc.ServiceDesc{
 	Metadata: "teamteam.proto",
 }
 
-func init() { proto.RegisterFile("teamteam.proto", fileDescriptor_teamteam_bfe49057c34d5ae5) }
+func init() { proto.RegisterFile("teamteam.proto", fileDescriptor_teamteam_e3048e0a75a105c9) }
 
-var fileDescriptor_teamteam_bfe49057c34d5ae5 = []byte{
-	// 268 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x90, 0x4f, 0x4b, 0x33, 0x31,
-	0x10, 0xc6, 0x77, 0x5f, 0xde, 0xdd, 0xd6, 0x11, 0x2c, 0x0e, 0x62, 0xcb, 0x7a, 0xb0, 0xe4, 0xd4,
-	0x83, 0xa4, 0xa2, 0xe0, 0x49, 0x10, 0x0f, 0xc5, 0x6b, 0x89, 0xde, 0x4b, 0x56, 0x63, 0x2d, 0xdd,
-	0x64, 0x63, 0x9c, 0x15, 0xf7, 0x5b, 0xf9, 0x11, 0x65, 0x93, 0x2c, 0xf5, 0xcf, 0x61, 0x48, 0x9e,
-	0x67, 0x78, 0x26, 0xf9, 0x0d, 0x1c, 0x90, 0x92, 0xba, 0x2b, 0x6e, 0x5d, 0x4d, 0x35, 0x42, 0xaf,
-	0x6d, 0x59, 0x9c, 0xad, 0x37, 0xf4, 0xd2, 0x94, 0xfc, 0xb1, 0xd6, 0xf3, 0xaa, 0x31, 0xf5, 0xdc,
-	0xa9, 0xe7, 0x4a, 0x7d, 0xc4, 0xc3, 0x96, 0xf1, 0x12, 0x92, 0x6c, 0x00, 0xd9, 0x42, 0x5b, 0x6a,
-	0xd9, 0x0d, 0x8c, 0xee, 0x14, 0x89, 0xba, 0x31, 0x4f, 0x42, 0xbd, 0x36, 0xea, 0x8d, 0xf0, 0x08,
-	0x32, 0xd7, 0xe9, 0x49, 0x3a, 0x4d, 0x67, 0x99, 0x08, 0x02, 0x8f, 0x21, 0xb7, 0x95, 0x6c, 0x95,
-	0x9b, 0xfc, 0x9b, 0xa6, 0xb3, 0x3d, 0x11, 0x15, 0xbb, 0x85, 0xcc, 0xa7, 0xf1, 0x14, 0xf6, 0x83,
-	0xb5, 0x72, 0xd2, 0x6c, 0x63, 0x18, 0x82, 0x25, 0xa4, 0xd9, 0xe2, 0x18, 0x06, 0xba, 0x5d, 0x59,
-	0xe9, 0xc8, 0x8f, 0xc8, 0x44, 0xae, 0xdb, 0xa5, 0x74, 0x74, 0xf1, 0x99, 0xc2, 0xf0, 0x41, 0x49,
-	0xdd, 0x15, 0x72, 0xf8, 0xbf, 0xdc, 0x98, 0x35, 0x1e, 0xf2, 0x1d, 0x1c, 0xf7, 0x7f, 0x2d, 0xfe,
-	0x5a, 0x2c, 0xc1, 0x2b, 0xc8, 0xef, 0xc9, 0x75, 0xc9, 0x31, 0xef, 0x59, 0x79, 0x70, 0x22, 0x50,
-	0x31, 0xda, 0x35, 0x16, 0xef, 0xca, 0x10, 0x4b, 0xce, 0x53, 0xbc, 0x86, 0x61, 0x0f, 0x8e, 0x27,
-	0xdf, 0x07, 0xff, 0x5a, 0xc7, 0xcf, 0x57, 0x7d, 0x87, 0x25, 0x65, 0xee, 0xd7, 0x78, 0xf9, 0x15,
-	0x00, 0x00, 0xff, 0xff, 0x46, 0x05, 0x15, 0x48, 0x92, 0x01, 0x00, 0x00,
+var fileDescriptor_teamteam_e3048e0a75a105c9 = []byte{
+	// 269 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x50, 0xc1, 0x4a, 0xc3, 0x40,
+	0x10, 0x4d, 0xc4, 0xa4, 0x3a, 0x85, 0x8a, 0x83, 0x9a, 0x92, 0x8b, 0x75, 0x4f, 0x3d, 0xc8, 0x56,
+	0x14, 0xfc, 0x83, 0xd0, 0x9b, 0x84, 0xd5, 0x7b, 0xd9, 0xe8, 0x5a, 0x4b, 0xb3, 0x9b, 0x75, 0x9d,
+	0x88, 0xf9, 0x3d, 0xbf, 0x4c, 0x92, 0x6c, 0x69, 0x44, 0x0f, 0x43, 0xf2, 0xde, 0x9b, 0x79, 0xec,
+	0x7b, 0x30, 0x21, 0x25, 0x75, 0x3b, 0xdc, 0xba, 0x8a, 0x2a, 0x84, 0x1d, 0xb6, 0x45, 0x7a, 0xbd,
+	0xde, 0xd0, 0x5b, 0x5d, 0xf0, 0xe7, 0x4a, 0x2f, 0xca, 0xda, 0x54, 0x0b, 0xa7, 0x5e, 0x4b, 0xf5,
+	0xe5, 0x3f, 0xb6, 0xf0, 0x3f, 0xfd, 0x25, 0x1b, 0x41, 0x94, 0x69, 0x4b, 0x0d, 0xcb, 0xe0, 0x7c,
+	0xa9, 0x28, 0x2f, 0x65, 0xa3, 0x9c, 0xa8, 0x6a, 0xf3, 0x22, 0xd4, 0x7b, 0xad, 0x3e, 0x08, 0xcf,
+	0x20, 0x72, 0x2d, 0x9e, 0x86, 0xb3, 0x70, 0x1e, 0x89, 0x1e, 0xe0, 0x05, 0xc4, 0xb6, 0xdb, 0x9d,
+	0x1e, 0xcc, 0xc2, 0xf9, 0xb1, 0xf0, 0x88, 0x2d, 0x61, 0x3c, 0xf0, 0xc0, 0x4b, 0x18, 0xf7, 0xc2,
+	0xca, 0x49, 0xb3, 0xf5, 0x16, 0xd0, 0x53, 0x42, 0x9a, 0x2d, 0x26, 0x30, 0xd2, 0xcd, 0xca, 0x4a,
+	0x47, 0x9d, 0x51, 0x24, 0x62, 0xdd, 0xe4, 0xd2, 0xd1, 0xed, 0x77, 0x08, 0x47, 0x4f, 0x4a, 0xea,
+	0x76, 0x90, 0xc3, 0x61, 0xbe, 0x31, 0x6b, 0x3c, 0xe5, 0xfb, 0xa0, 0xbc, 0x7b, 0x77, 0xfa, 0x97,
+	0x62, 0x01, 0xde, 0x43, 0xfc, 0x48, 0xae, 0xbd, 0x4c, 0xf8, 0x2e, 0x37, 0xef, 0x19, 0x1f, 0x2b,
+	0x3d, 0xd9, 0x0b, 0xd9, 0xa7, 0x32, 0xc4, 0x82, 0x9b, 0x10, 0x1f, 0x60, 0xf2, 0xbb, 0x04, 0xbc,
+	0x1a, 0xda, 0xff, 0x5b, 0x50, 0x9a, 0x0c, 0x57, 0x06, 0x3a, 0x0b, 0x8a, 0xb8, 0x2b, 0xf9, 0xee,
+	0x27, 0x00, 0x00, 0xff, 0xff, 0x0a, 0xbb, 0xad, 0x43, 0xb0, 0x01, 0x00, 0x00,
 }

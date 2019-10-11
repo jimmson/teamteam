@@ -30,7 +30,7 @@ func String(t TeamTeamEventType) string {
 	}
 }
 
-type Round struct {
+type PlayerRound struct {
 	PlayerRank int32
 	MyPart     int32
 }

@@ -7,6 +7,7 @@ import (
 
 const cols = " id, status, created_at, updated_at, match_id, round_num, rank, my_part, player_part "
 
+// Create starts the match
 func Create(ctx context.Context, dbc *sql.DB, match int) (int64, error) {
 	return fsm.Insert(ctx, dbc, create{Match: match})
 }
@@ -56,7 +57,7 @@ func ExcludedFromRound(ctx context.Context, dbc *sql.DB, id int64) error {
 // Try Collecting Round
 func CollectingRound(ctx context.Context, dbc *sql.DB, id int64, roundNum, rank, myparts, playerpart int) error {
 	return fsm.Update(ctx, dbc, MatchStatusRoundJoined, MatchStatusRoundCollecting,
-		roundCollect{ID: id, RoundNum: roundNum, Rank: rank, MyPart: myparts, PlayerPart:playerpart})
+		roundCollect{ID: id, RoundNum: roundNum, Rank: rank, MyPart: myparts, PlayerPart: playerpart})
 }
 
 func CollectingRoundFailed(ctx context.Context, dbc *sql.DB, id int64) error {

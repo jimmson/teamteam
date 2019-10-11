@@ -2,6 +2,7 @@ package ops
 
 import (
 	"github.com/corverroos/unsure/engine"
+	"github.com/jimmson/teamteam"
 	"github.com/jimmson/teamteam/db"
 )
 
@@ -9,4 +10,5 @@ import (
 type Backends interface {
 	EngineClient() engine.Client
 	TeamteamDB() *db.TeamteamDB
+	TeamTeamClient() teamteam.Client
 }

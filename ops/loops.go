@@ -5,11 +5,13 @@ import (
 	"flag"
 	"fmt"
 	"math/rand"
+	"strconv"
 	"time"
 
 	"github.com/corverroos/unsure"
 	"github.com/corverroos/unsure/engine"
 	"github.com/jimmson/teamteam/db/cursors"
+	"github.com/jimmson/teamteam/db/playerMatch"
 	"github.com/luno/fate"
 	"github.com/luno/jettison/errors"
 	"github.com/luno/jettison/log"
@@ -56,16 +58,34 @@ func consumeEngine(b Backends) {
 
 		engineType := engine.EventType(e.Type.ReflexType())
 
+		roundID, err := strconv.ParseInt(e.ForeignID, 10, 0)
+		if err != nil {
+			return err
+		}
+
+		//round, err := b.TeamTeamClient().GetPlayerRound(ctx, int(roundID), "")
+
 		switch engineType {
 		case engine.EventTypeMatchStarted:
 			//	TODO(teamteam): Update match state to match started
+			_, err = playerMatch.Create(ctx, b.TeamteamDB().DB, int(roundID))
 		case engine.EventTypeRoundJoin:
 			//	TODO(teamteam): Update match state to match joining
+			err = playerMatch.JoiningRound(ctx, b.TeamteamDB().DB, roundID)
 			//	TODO(teamteam): inc round counter? get round num from event?
 		//	TODO(teamteam): Update match state to excluded
+		case engine.EventTypeRoundJoined:
+			err = playerMatch.JoinedRound(ctx, b.TeamteamDB().DB, roundID)
 		case engine.EventTypeRoundCollect:
 			//	TODO(teamteam): Update match state collecting
+			//err = playerMatch.CollectingRound(ctx, b.TeamteamDB().DB, roundID)
 			//TODO......
+		case engine.EventTypeRoundCollected:
+		case engine.EventTypeRoundSubmit:
+		case engine.EventTypeRoundSubmitted:
+		case engine.EventTypeRoundSuccess:
+		case engine.EventTypeRoundFailed:
+		case engine.EventTypeMatchEnded:
 		}
 
 		return nil

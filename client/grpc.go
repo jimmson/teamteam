@@ -32,15 +32,15 @@ func (c *client) Stream(ctx context.Context, after string, opts ...reflex.Stream
 	return sFn(ctx, after, opts...)
 }
 
-func (c *client) GetRound(ctx context.Context, roundID int, playerName string) (*teamteam.Round, error) {
-	res, err := c.rpcClient.GetRound(ctx, &pb.GetRoundRequest{
+func (c *client) GetPlayerRound(ctx context.Context, roundID int, playerName string) (*teamteam.PlayerRound, error) {
+	res, err := c.rpcClient.GetPlayerRound(ctx, &pb.GetPlayerRoundRequest{
 		Round:  int32(roundID),
 		Player: playerName,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return &teamteam.Round{
+	return &teamteam.PlayerRound{
 		PlayerRank: res.PlayerRank,
 		MyPart:     res.MyPart,
 	}, err
