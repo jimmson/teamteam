@@ -5,7 +5,7 @@ import (
 	"database/sql"
 )
 
-const cols = " id, status, created_at, updated_at, player_Name, round_num, rank, my_part, player_part "
+const cols = " id, status, created_at, updated_at, player_name, round_num, rank, my_part, player_part "
 
 func Create(ctx context.Context, dbc *sql.DB, match int) (int64, error) {
 	return fsm.Insert(ctx, dbc, create{Match: match})
