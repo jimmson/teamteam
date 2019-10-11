@@ -5,7 +5,7 @@ import (
 	"database/sql"
 )
 
-const cols = " id, status, created_at, updated_at, match_id, round_num, rank, my_part, player_part "
+const cols = " id, status, created_at, updated_at, player_Name, round_num, rank, my_part, player_part "
 
 func Create(ctx context.Context, dbc *sql.DB, match int) (int64, error) {
 	return fsm.Insert(ctx, dbc, create{Match: match})
@@ -155,7 +155,7 @@ func Lookup(ctx context.Context, dbc *sql.DB, id int64) (*Match, error) {
 func scan(row *sql.Row) (*Match, error) {
 	var r Match
 
-	err := row.Scan(&r.ID, &r.Status, &r.CreatedAt, &r.UpdatedAt, &r.MatchID, &r.RoundNum, &r.Rank, &r.MyPart, &r.PlayerPart)
+	err := row.Scan(&r.ID, &r.Status, &r.CreatedAt, &r.UpdatedAt, &r.PlayerName, &r.RoundNum, &r.Rank, &r.MyPart, &r.PlayerPart)
 	if err != nil {
 		return nil, err
 	}
