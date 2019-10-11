@@ -39,8 +39,8 @@ func (srv *Server) Stream(req *reflexpb.StreamRequest, ss pb.TeamTeam_StreamServ
 	return srv.rserver.Stream(srv.stream, req, ss)
 }
 
-func (srv *Server) GetRound(context.Context, *pb.GetRoundRequest) (*pb.GetRoundResponse, error) {
-	return &pb.GetRoundResponse{
+func (srv *Server) GetRound(context.Context, *pb.GetRoundRequest) (*pb.Round, error) {
+	return &pb.Round{
 		PlayerRank: 3,
 		MyPart:     2,
 	}, nil

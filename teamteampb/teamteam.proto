@@ -6,7 +6,7 @@ import "github.com/luno/reflex/reflexpb/reflex.proto";
 service TeamTeam {
   rpc Ping (Empty) returns (Empty) {}
   rpc Stream (reflexpb.StreamRequest) returns (stream reflexpb.Event) {}
-  rpc GetRound(GetRoundRequest) returns (GetRoundResponse) {}
+  rpc GetRound(GetRoundRequest) returns (Round) {}
 }
 
 message Empty {}
@@ -16,7 +16,7 @@ message GetRoundRequest {
   string player = 2;
 }
 
-message GetRoundResponse {
+message Round {
   int32 player_rank = 1;
   int32 my_part = 2;
 }

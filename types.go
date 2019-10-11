@@ -29,3 +29,8 @@ func String(t TeamTeamEventType) string {
 		return "Invalid event type"
 	}
 }
+
+type Round struct {
+	PlayerRank int32
+	MyPart     int32
+}
