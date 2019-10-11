@@ -1,0 +1,23 @@
+syntax = "proto3";
+package teamteampb;
+
+import "github.com/luno/reflex/reflexpb/reflex.proto";
+
+service TeamTeam {
+  rpc Ping (Empty) returns (Empty) {}
+  rpc Stream (reflexpb.StreamRequest) returns (stream reflexpb.Event) {}
+  rpc GetRound(GetRoundRequest) returns (GetRoundResponse) {}
+}
+
+message Empty {}
+
+message GetRoundRequest {
+  int32 round = 1;
+  string player = 2;
+}
+
+message GetRoundResponse {
+  int32 player_rank = 1;
+  int32 my_part = 2;
+}
+
