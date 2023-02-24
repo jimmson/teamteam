@@ -9,7 +9,6 @@ require (
 	github.com/luno/jettison v0.0.0-20191004101118-b85c950bad04
 	github.com/luno/reflex v0.0.0-20191010085905-159383ec8c22
 	github.com/luno/shift v0.0.0-20190912102423-a69494119072
-	github.com/stretchr/testify v1.4.0
-	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb
+	golang.org/x/net v0.7.0
 	google.golang.org/grpc v1.24.0
 )
